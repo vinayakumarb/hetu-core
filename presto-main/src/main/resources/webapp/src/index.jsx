@@ -9,6 +9,7 @@ ReactDOM.render(
     document.getElementById('title')
 );
 
+
 ReactDOM.render(
     <ClusterHUD />,
     document.getElementById('cluster-hud')

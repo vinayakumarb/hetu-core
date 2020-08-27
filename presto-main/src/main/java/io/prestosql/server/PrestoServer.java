@@ -22,6 +22,7 @@ import io.airlift.discovery.client.Announcer;
 import io.airlift.discovery.client.DiscoveryModule;
 import io.airlift.event.client.JsonEventModule;
 import io.airlift.event.client.http.HttpEventModule;
+import io.airlift.http.server.HttpServer;
 import io.airlift.http.server.HttpServerModule;
 import io.airlift.jaxrs.JaxrsModule;
 import io.airlift.jmx.JmxHttpModule;
@@ -52,9 +53,14 @@ import io.prestosql.sql.parser.SqlParserOptions;
 import io.prestosql.statestore.StateStoreLauncher;
 import io.prestosql.statestore.StateStoreProvider;
 import io.prestosql.utils.HetuConfig;
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.HandlerContainer;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.gzip.GzipHandler;
 import org.weakref.jmx.guice.MBeanModule;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -149,11 +155,42 @@ public class PrestoServer
 
             injector.getInstance(ServerInfoResource.class).startupComplete();
 
+            disableGzip(injector);
+
             log.info("======== SERVER STARTED ========");
         }
         catch (Throwable e) {
             log.error(e);
             System.exit(1);
+        }
+    }
+
+    private void disableGzip(Injector injector) throws NoSuchFieldException, IllegalAccessException
+    {
+        /**
+         * SSE data will not reach client if its is encoded. By default client accepts gzip, but in case of broadcast
+         * that doesnot work. So had to disable the GZipHandler for this path to avoid response encoding.
+         * @param httpServer
+         */
+        HttpServer instance = injector.getInstance(HttpServer.class);
+        Field serverField = HttpServer.class.getDeclaredField("server");
+        serverField.setAccessible(true);
+        Server server = (Server) serverField.get(instance);
+        String excluded = "/api/updates/*";
+        Handler handler = server.getHandler();
+        excludeGzip(excluded, handler);
+    }
+
+    private void excludeGzip(String excluded, Handler handler)
+    {
+        if (handler instanceof GzipHandler) {
+            ((GzipHandler) handler).addExcludedPaths(excluded);
+        }
+        if (handler instanceof HandlerContainer) {
+            Handler[] childHandlers = ((HandlerContainer) handler).getChildHandlers();
+            for (Handler child : childHandlers) {
+                excludeGzip(excluded, child);
+            }
         }
     }
 
