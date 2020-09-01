@@ -1022,3 +1022,6 @@ button.hetu-form-label-plus:active,button.hetu-form-label-plus:active:hover,butt
     background-color: #bcbcbc;
     border-color: #bcbcbc;
 }
+.public_fixedDataTableColumnResizerLine_main{
+    display: none;
+}

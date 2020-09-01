@@ -1,0 +1,117 @@
+body{
+    background-color: #f1f1f1;
+}
+.font-16{
+    font-size: 18px;
+}
+.font-18{
+    font-size: 18px;
+}
+.font-20{
+    font-size: 20px;
+}
+.color-2b610a{
+    color: #2b610a;
+}
+.float-right{
+    float: right;
+}
+.border-bottom{
+    border-bottom: 1px solid #eee;
+}
+.color-eee{
+    color:#666;
+}
+.padding-top-10{
+    padding-top: 10px;
+}
+.overview{
+    display: flex;
+}
+.overview ul{
+    list-style: none;
+    padding-left: 0;
+}
+.overview .menu-left{
+    width: 300px;
+}
+.overview .menu-left ul{
+    border: 1px solid #ddd;
+    min-height:400px;
+    text-align: center;
+    background-color: #fff;
+    margin: 0 30px;
+}
+.overview .menu-left li{
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 28px;
+}
+.overview .menu-left li.active{
+    color: #337ab7;
+}
+.overview .menu-left i{
+    margin-right: 10px;
+}
+.overview .menu-left li a{
+    color: #333;
+}
+.overview .menu-left li a:hover{
+    text-decoration: none;
+}
+.overview .line-right{
+    flex: 1;
+    padding: 0 20px;
+}
+.overview .line-right>h2{
+    margin-top: 0;
+}
+.overview .line-right .checkbox-group ul{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 30px 0;
+}
+.overview .line-right .checkbox-group ul li{
+    margin-right: 30px;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.overview .line-right .checkbox-group ul li i{
+    margin-right: 6px;
+    width: 15px;
+}
+.overview .line-right .line-show{
+    display: flex;
+}
+.overview .line-right .line-show .line-part{
+    flex: 1;
+    background-color: #fff;
+    margin-right: 20px;
+    padding: 20px;
+}
+.overview .line-right .line-show .summary-info{
+    width: 600px;
+}
+.overview .line-right .line-show .summary-info .summary-detail,.overview .line-right .line-show .summary-info .summary-table{
+    background-color: #fff;
+    padding: 20px 20px 10px;
+    margin-bottom: 20px;
+}
+.overview .line-right .line-show .summary-info .summary-detail h3,.overview .line-right .line-show .summary-info .summary-table h3{
+    margin-top: 0;
+    text-align: center;
+}
+.display-none{
+    display: none;
+}
+.select-part{
+    text-align: right;
+}
+.flex-initial.header{
+    height: 61px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+.flex-initial.footer{
+    margin-top: 10px;
+}

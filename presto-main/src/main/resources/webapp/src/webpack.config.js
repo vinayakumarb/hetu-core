@@ -7,8 +7,9 @@ module.exports = {
         'stage': __dirname +'/stage.jsx',
         'worker': __dirname +'/worker.jsx',
         'hetuqueryeditor': __dirname +'/hetuqueryeditor.jsx',
+        'overview': __dirname +'/overview.jsx',
     },
-    mode: "production",
+    mode: "development",
     module: {
         rules: [
             {
