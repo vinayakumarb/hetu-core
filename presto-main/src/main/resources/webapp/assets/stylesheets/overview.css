@@ -90,7 +90,7 @@ body{
     padding: 20px;
 }
 .overview .line-right .line-show .summary-info{
-    width: 600px;
+    width: 500px;
 }
 .overview .line-right .line-show .summary-info .summary-detail,.overview .line-right .line-show .summary-info .summary-table{
     background-color: #fff;

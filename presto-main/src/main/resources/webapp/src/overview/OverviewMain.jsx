@@ -75,7 +75,7 @@ class OverviewMain extends React.Component{
                     <div className="menu-left">
                         <ul>
                             <li className="active"><i className="fa fa-line-chart"></i>metrics</li>
-                            <li><a href="javascript:void(0)"><i className="fa fa-home"></i>Home</a></li>
+                            <li><a href="./queryeditor.html"><i className="fa fa-home"></i>Home</a></li>
                         </ul>
                     </div>
                     <div className="line-right">
@@ -122,15 +122,17 @@ class OverviewMain extends React.Component{
                                     <h3>Cluster info</h3>
                                     <table className="table">
                                         <thead>
-                                            <th>ID</th>
-                                            <th>IP</th>
-                                            <th>CPU Count</th>
-                                            <th style={{padding:'0 10px'}}>Node Memory</th>
-                                            <th>Free Memory</th>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>IP</th>
+                                                <th>CPU Count</th>
+                                                <th style={{padding:'0 10px'}}>Node Memory</th>
+                                                <th>Free Memory</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        {this.state.tableData.map((ele)=>(
-                                            <tr>
+                                        {this.state.tableData.map((ele, index)=>(
+                                            <tr key={index}>
                                                 <td>{ele.id}</td>
                                                 <td>{ele.ip}</td>
                                                 <td>{ele.count}</td>

@@ -25,7 +25,8 @@ class EchartPart extends React.Component{
             lastRow:null,
             lastByte:null,
             lastWorker:null,
-            memoryInit:false
+            memoryInit:false,
+            unitArr:['quantity','quantity','bytes','quantity','quantity','bytes','quantity','quantity','quantity']
         };
         this._onChange=this._onChange.bind(this)
     }
@@ -166,12 +167,13 @@ class EchartPart extends React.Component{
         });
         let  mychart1=echarts.init(this.refs.cpuLoad);
         mychart1.setOption({
-            title:{text:'CPU Usage(%)'},
+            title:{text:'CPU Usage'},
             tooltip:{
                 trigger:'axis'
             },
             xAxis:{
                 type:'time',
+                name:'time',
                 interval:60*1000*this.state.step/10,
                 boundaryGap: false,
                 axisLabel:{
@@ -182,6 +184,7 @@ class EchartPart extends React.Component{
                 }
             },
             yAxis:{
+                name:'usage(%)',
                 axisTick:{
                     show:false
                 }
@@ -202,6 +205,7 @@ class EchartPart extends React.Component{
                     },
                     xAxis:{
                         type:'time',
+                        name:'time',
                         interval:60*1000*this.state.step/10,
                         boundaryGap: false,
                         axisLabel:{
@@ -212,6 +216,7 @@ class EchartPart extends React.Component{
                         }
                     },
                     yAxis:{
+                        name:this.state.unitArr[i],
                         axisTick:{
                             show:false
                         }
@@ -261,8 +266,8 @@ class EchartPart extends React.Component{
                     </select>
                 </div>
                 <div ref="cpuLoad" style={{height:'400px'}}></div>
-                {Object.keys(this.props.state).map((key)=>(
-                    <div ref={key} className={this.props.state[key] ? '' :'display-none'} style={{height:'400px'}}></div>
+                {Object.keys(this.props.state).map((key,index)=>(
+                    <div ref={key} className={this.props.state[key] ? '' :'display-none'} style={{height:'400px'}} key={index}></div>
                 ))}
             </div>
 
