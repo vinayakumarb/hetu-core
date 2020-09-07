@@ -20,15 +20,15 @@ class Footer
 
     render() {
         return (
-            <div className='flex'>
+            <div className='flex footer'>
                 <div className='flex flex-initial'>
-                    <p style={{fontFamily:"roboto!important", marginBottom: "0px"}}>
-                        <a href="mailto:contact@openlookeng.io" style={{fontFamily:"roboto!important"}}>contact@openlookeng.io</a>
+                    <p>
+                        <a href="mailto:contact@openlookeng.io">contact@openlookeng.io</a>
                     </p>
                 </div>
                 <div className='flex justify-flex-end'>
                     <div className='flex flex-initial'>
-                        <p style={{marginBottom: "0px"}}>Copyright © 2020 <a href={"https://openlookeng.io"} target="_blank">openLooKeng</a>. All rights reserved</p>
+                        <p>Copyright © 2020 <a href={"https://openlookeng.io"} target="_blank">openLooKeng</a>. All rights reserved</p>
                     </div>
                 </div>
             </div>

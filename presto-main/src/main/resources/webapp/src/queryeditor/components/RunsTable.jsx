@@ -131,7 +131,7 @@ class RunsTable extends React.Component {
               rowsCount={this.state.runs.length}
               width={this.props.tableWidth}
               height={this.props.tableHeight}
-              headerHeight={50}>
+              headerHeight={30}>
             <Column
                 header={<Cell>User</Cell>}
                 cell={({rowIndex}) => <Cell> {this.columnGetter('user', rowIndex)}</Cell>}

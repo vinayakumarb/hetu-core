@@ -200,7 +200,7 @@ class QueryEditor
     let schemas = (_.isUndefined(currentCatalogModel)) ? [] : currentCatalogModel.children;
     return (
         <div style={{display:"flex"}}>
-          <button className="btn btn-success btn-lg active"
+          <button className="btn btn-success btn-sm runBtn active"
                   style={{marginRight:"35px", marginLeft:"35px"}}
                   disabled={this.state.buttonState}
                   onClick={this.handleRun}

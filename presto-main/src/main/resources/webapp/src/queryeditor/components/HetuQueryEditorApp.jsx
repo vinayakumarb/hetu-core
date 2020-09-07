@@ -15,11 +15,12 @@ import React from 'react';
 import RunActions from '../actions/RunActions';
 // import ConnectionErrors from './ConnectionErrors';
 import Header from './Header';
+import StatusFooter from "./StatusFooter";
 import Footer from "./Footer";
 // import TableExplorer from './TableExplorer';
 import QueryInformation from './QueryInformation';
 import QueryEditor from './QueryEditor';
-import SchemaTree from "./SchemaTree";
+import LeftPanel from "./LeftPanel";
 import AddCatalogContainer from "../../addcatalog";
 // import TableSearch from './TableSearchrch';
 // import {ClusterHUD} from "../../components/ClusterHUD";
@@ -43,9 +44,9 @@ class HetuQueryEditorApp
         <div className='flex flex-row content'>
           <div className='flex flex-column flex-initial left' style={{height: "100%"}}>
               <div className='flex flex-column content' style={{height: "100%"}}>
-                <SchemaTree/>
-              {/*<TableSearch />*/}
-              {/*<ColumnsPreview />*/}
+                  <LeftPanel />
+                  {/*<TableSearch />*/}
+                  {/*<ColumnsPreview />*/}
              </div>
           </div>
           <div className='flex flex-column right' style={{height: "100%"}}>
@@ -56,6 +57,9 @@ class HetuQueryEditorApp
                   <QueryInformation />
               </div>
           </div>
+        </div>
+        <div className='flex flex-row flex-initial statusFooter'>
+            <StatusFooter/>
         </div>
         <div className='flex flex-row flex-initial footer'>
             <Footer/>
