@@ -128,6 +128,7 @@ class TableStore {
       partitions: [],
     });
 
+    this.tables = [];//for now clear everything else and keep only this
     // Add the table to the collection
     this.tables.push(table);
 

@@ -21,10 +21,6 @@ import Footer from "./Footer";
 import QueryInformation from './QueryInformation';
 import QueryEditor from './QueryEditor';
 import LeftPanel from "./LeftPanel";
-import AddCatalogContainer from "../../addcatalog";
-// import TableSearch from './TableSearchrch';
-// import {ClusterHUD} from "../../components/ClusterHUD";
-// import ColumnsPreview from './ColumnsPreview';
 
 class HetuQueryEditorApp
     extends React.Component {
@@ -33,6 +29,7 @@ class HetuQueryEditorApp
     // for the user
     window.addEventListener('online',   function() { RunActions.wentOnline(); });
     window.addEventListener('offline',  function() { RunActions.wentOffline(); });
+    window.addEventListener("contextmenu", ( e )=> { e.preventDefault(); return false; });
   }
 
   render() {
@@ -50,10 +47,10 @@ class HetuQueryEditorApp
              </div>
           </div>
           <div className='flex flex-column right' style={{height: "100%"}}>
-              <div className='flex flex-column right' style={{height: "60%"}}>
+              <div className='flex flex-column' style={{height: "60%"}}>
                   <QueryEditor />
               </div>
-              <div className='flex flex-column right' style={{height: "40%"}}>
+              <div className='flex flex-column' style={{height: "40%"}}>
                   <QueryInformation />
               </div>
           </div>

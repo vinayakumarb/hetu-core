@@ -39,6 +39,33 @@ function schema(fqn) {
   }
 }
 
+function catalog(fqn) {
+  let parts = getParts(fqn);
+
+  if (parts && parts.length) {
+    let catalogParts = parts[0];
+    let i = 1;
+    for (; i < parts.length - 2; i++) {
+      catalogParts = catalogParts + '.' + parts[i];
+    }
+    return catalogParts;
+  }
+  else {
+    return null;
+  }
+}
+
+function simpleSchema(fqn) {
+  let parts = getParts(fqn);
+
+  if (parts && parts.length >= 2) {
+    return parts[parts.length - 2];
+  }
+  else {
+    return null;
+  }
+}
+
 function table(fqn) {
   let parts = getParts(fqn);
 
@@ -57,5 +84,7 @@ export default {
   validFqnPart,
   schema,
   table,
-  toFqn
+  toFqn,
+  catalog,
+  simpleSchema
 };

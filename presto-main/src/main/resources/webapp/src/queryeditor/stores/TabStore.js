@@ -20,14 +20,23 @@ class TabStore {
     this.bindActions(TabActions);
 
     this.selectedTab = TabConstants.ALL_QUERIES;
+    this.selectedLeftPanelTab = TabConstants.LEFT_PANEL_TREE;
   }
 
   onSelectTab(tab) {
     this.selectedTab = tab;
   }
 
+  onSelectLeftPanelTab(tab) {
+    this.selectedLeftPanelTab = tab;
+  }
+
   static getSelectedTab() {
     return this.getState().selectedTab;
+  }
+
+  static getSelectedLeftPanelTab() {
+    return this.getState().selectedLeftPanelTab;
   }
 }
 

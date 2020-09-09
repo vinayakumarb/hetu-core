@@ -16,6 +16,11 @@ import {TreeView} from "@bosket/react";
 import {string} from "@bosket/tools";
 import AddCatalogContainer from "../../addcatalog";
 import SchemaActions, {dataType} from "../actions/SchemaActions";
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import TableActions from "../actions/TableActions";
+import TabActions from "../actions/TabActions";
+import TabConstants from "../constants/TabConstants";
+import _ from "lodash";
 
 function getIcon(type) {
     switch (type) {
@@ -37,6 +42,48 @@ function getIcon(type) {
     }
 }
 
+function renderItem(tree, item) {
+    let style = (item.children == undefined || item.children.length == 0) ? {marginLeft: "14.5px"} : {};
+    if (item.type == dataType.TABLE) {
+        let tableStyle = {};
+        Object.assign(tableStyle, style, {cursor: "pointer"})
+        if (item.fqn == tree.state.selectedTableName) {
+            tableStyle.color = "#0000ff"
+        }
+        return (
+        <a style={tableStyle} id={item.fqn}>
+                <ContextMenuTrigger id={item.fqn}>
+                    {getIcon(item.type)}<span>{item.name}</span>
+                </ContextMenuTrigger>
+                <ContextMenu id={item.fqn}>
+                    <MenuItem data={{item:item, tree: tree}} onClick={(e, data) => {
+                        data.tree.selectTable(data.item.fqn);
+                        TableActions.addTable({
+                            name: data.item.fqn
+                        });
+                        TableActions.selectTable(data.item.fqn);
+                        TabActions.selectLeftPanelTab(TabConstants.LEFT_PANEL_COLUMNS);
+                    }}>
+                        <i className="icon fa fa-columns valign-middle"></i><span>Show columns</span>
+                    </MenuItem>
+                    <MenuItem divider/>
+                    <MenuItem data={{item:item, tree: tree}} onClick={(e, data) => {
+                        data.tree.selectTable(data.item.fqn);
+                        TableActions.addTable({
+                            name: data.item.fqn
+                        });
+                        TableActions.selectTable(data.item.fqn);
+                        TabActions.selectTab(TabConstants.DATA_PREVIEW);
+                    }}>
+                        <i className="icon fa fa-list valign-middle"></i><span>Preview data</span>
+                    </MenuItem>
+                </ContextMenu>
+            </a>
+        )
+    }
+    return (<a style={style}>{getIcon(item.type)}<span>{item.name}</span></a>);
+}
+
 class SchemaTree extends React.Component {
 
     constructor(props) {
@@ -46,10 +93,7 @@ class SchemaTree extends React.Component {
             selection: [],
             onSelect: _ => this.setState({selection: _}),
             search: (input) => (i) => string(i.name).contains(input),
-            display: (item) => {
-                let style = (item.children==undefined || item.children.length == 0) ? {marginLeft: "14.5px"} : {};
-                return (<a style={style}>{getIcon(item.type)}<span>{item.name}</span></a>);
-            },
+            display: renderItem.bind(null, this),
             sort: (a, b) => a.name.localeCompare(b.name),
             strategies: {
                 selection: [],
@@ -62,10 +106,13 @@ class SchemaTree extends React.Component {
             },
             height:0,
             model: this.getInitialModel(),
-            name: "name"
+            name: "name",
+            selectedTableName: ""
         };
         this.updateTree = this.updateTree.bind(this);
         this.refresh = this.refresh.bind(this);
+        this.selectTable = this.selectTable.bind(this);
+        this.unselectTable = this.unselectTable.bind(this);
     }
 
     updateTree(refresh = false) {
@@ -91,9 +138,6 @@ class SchemaTree extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            height: document.body.clientHeight - (61 + 57 + 23)  // header + body-padding-bottom  heights
-        })
         this.updateTree();
     }
 
@@ -103,6 +147,28 @@ class SchemaTree extends React.Component {
 
     getInitialModel() {
         return [];
+    }
+
+    selectTable(tableName) {
+        this.unselectTable();
+        let element = document.getElementById(tableName);
+        if (!_.isElement(element)) {
+            return;
+        }
+        element.style.color = "#0000ff";
+        this.state.selectedTableName = tableName;
+    }
+
+    unselectTable() {
+        if (this.state.selectedTableName == "") {
+            return;
+        }
+        let element = document.getElementById(this.state.selectedTableName);
+        this.state.selectedTableName = "";
+        if (!_.isElement(element)) {
+            return;
+        }
+        element.style.color = "#222222";
     }
 
     renderButtons() {
@@ -126,10 +192,11 @@ class SchemaTree extends React.Component {
                 </div>
             );
         }
+        //total height - header - tab header - footer - statusbar - menu bar
         return (
             <div>
                 {this.renderButtons()}
-                <div style={{height: this.state.height}}>
+                <div style={{height: "calc(100vh - 200px)"}}>
                     <TreeView {...this.state}></TreeView>
                 </div>
             </div>

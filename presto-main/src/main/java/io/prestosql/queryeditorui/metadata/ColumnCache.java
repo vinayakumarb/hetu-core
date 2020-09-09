@@ -20,7 +20,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import io.airlift.log.Logger;
-import io.prestosql.client.ClientTypeSignature;
 import io.prestosql.client.Column;
 import io.prestosql.client.QueryData;
 import io.prestosql.client.StatementClient;
@@ -28,6 +27,7 @@ import io.prestosql.queryeditorui.execution.BackgroundCacheLoader;
 import io.prestosql.queryeditorui.execution.QueryClient;
 import io.prestosql.queryeditorui.execution.QueryRunner;
 import io.prestosql.queryeditorui.execution.QueryRunner.QueryRunnerFactory;
+import io.prestosql.server.protocol.Query;
 import io.prestosql.spi.type.TypeSignature;
 import org.joda.time.Duration;
 
@@ -89,7 +89,8 @@ public class ColumnCache
                     QueryData results = client.currentData();
                     if (results.getData() != null) {
                         for (List<Object> row : results.getData()) {
-                            Column column = new Column((String) row.get(0), (String) row.get(1), new ClientTypeSignature(TypeSignature.parseTypeSignature((String) row.get(1)).toString()));
+                            TypeSignature typeSignature = TypeSignature.parseTypeSignature((String) row.get(1));
+                            Column column = new Column((String) row.get(0), (String) row.get(1), Query.toClientTypeSignature(typeSignature));
                             cache.add(column);
                         }
                     }

@@ -16,6 +16,8 @@ const TabConstants = {
   ALL_QUERIES: 1,
   RESULTS_PREVIEW: 2,
   DATA_PREVIEW: 3,
+  LEFT_PANEL_TREE: 0,
+  LEFT_PANEL_COLUMNS: 1
 };
 
 export default TabConstants;

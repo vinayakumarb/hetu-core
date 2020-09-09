@@ -110,6 +110,7 @@ class SchemaActions {
                     schema = {
                         name: entry.schema,
                         type: dataType.SCHEMA,
+                        catalog: entry.connectorId,
                         children: []
                     };
                     schemas.push(schema);
@@ -120,6 +121,9 @@ class SchemaActions {
                     table = {
                         name: entry.table,
                         type: dataType.TABLE,
+                        catalog: entry.connectorId,
+                        schema: entry.schema,
+                        fqn: entry.fqn
                     };
                     tables.push(table);
                 }

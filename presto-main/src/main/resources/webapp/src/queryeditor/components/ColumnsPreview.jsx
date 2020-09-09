@@ -15,6 +15,7 @@ import React from 'react';
 import Column from './Column';
 import _ from 'lodash';
 import TableStore from '../stores/TableStore';
+import FQN from '../utils/fqn';
 
 // State actions
 function getStateFromStore() {
@@ -83,7 +84,20 @@ class ColumnsPreview
     return (
       <div className="flex flex-column columns-container panel-body content">
         <div className='columns-label'>
-          Columns
+          <span>
+            Catalog : {FQN.catalog(this.state.table.name)}
+            <br/>
+            Schema : {FQN.simpleSchema(this.state.table.name)}
+            <br/>
+            Table : {FQN.table(this.state.table.name)}
+          </span>
+        </div>
+        <div style={{fontSize:"14px", fontWeight:500, color:"#020202", borderBottom: "2px solid #d6d9dc"}}>
+          <Column
+              key={"column_preview_header"}
+              name={"Column Name"}
+              type={"Data Type"}
+              header={true}/>
         </div>
         <div className='scroll-container'>
           {columns}

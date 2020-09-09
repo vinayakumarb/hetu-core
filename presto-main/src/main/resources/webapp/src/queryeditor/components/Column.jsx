@@ -35,7 +35,8 @@ class Column
             <strong>{this.props.name}</strong>
           </div>
           <div>
-            <small>{this.props.type} {this.props.partition ? '(Partition)' : null}</small>
+            {this.props.header ? <strong>{this.props.type}</strong> :
+                <small>{this.props.type} {this.props.partition ? '(Partition)' : null}</small>}
           </div>
         </div>
       </div>

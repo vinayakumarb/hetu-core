@@ -71,6 +71,19 @@ public class Table
         else if (parts.size() == 2) {
             return new Table("hive", parts.get(0), parts.get(1));
         }
+        else if (parts.size() == 1) {
+            return new Table("hive", "default", parts.get(0));
+        }
+        else if (parts.size() > 3) {
+            StringBuilder catalogBuilder = new StringBuilder();
+            for (int i = 0; i < parts.size() - 2; i++) {
+                catalogBuilder.append(parts.get(i));
+                if (i + 1 < parts.size() - 2) {
+                    catalogBuilder.append(".");
+                }
+            }
+            return new Table(catalogBuilder.toString(), parts.get(parts.size() - 2), parts.get(parts.size() - 1));
+        }
         else {
             throw new IllegalArgumentException("Table identifier parts not found.");
         }

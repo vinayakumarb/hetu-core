@@ -75,7 +75,7 @@ class QueryInformation
     let windowWidth = document.documentElement.clientWidth;
     let newWidth = windowWidth - 280 - 4; //left side size
     newWidth = 400 > newWidth ? 400 : newWidth;
-    let newHeight = windowHeight - (408 + 61 + 44 + 20 + 6); // editor + header + tabs + footer+ extra 6(unknown) heights
+    let newHeight = windowHeight - ((0.3 * (windowHeight + 50)) + 40 + 57 + 46 + 6); // editor + header + tabs + footer+ extra 6(unknown) heights
     newHeight = 400 > newHeight ? 400 : newHeight;
     this.setState({
       tableWidth: newWidth,
@@ -92,7 +92,7 @@ class QueryInformation
       dataPreview: table,
     });
 
-    TabActions.selectTab.defer(TabConstants.DATA_PREVIEW);
+    // TabActions.selectTab.defer(TabConstants.DATA_PREVIEW);
   }
 
   onTabChange() {
@@ -113,26 +113,26 @@ class QueryInformation
             <Tab>My saved queries</Tab>
             <Tab>All queries</Tab>
             <Tab>Results</Tab>
-            {/*<Tab>Data Preview</Tab>*/}
+            <Tab>Data Preview</Tab>
           </TabList>
-          <TabPanel style={{height:this.state.tableHeight, overflowY:'auto'}}>
+          <TabPanel style={{height:"calc(70vh - 200px)", overflowY:'auto'}}>
             <MySavedQueries/>
           </TabPanel>
-          <TabPanel style={{overflowY:'auto',height:this.state.tableHeight}}>
+          <TabPanel style={{overflowY:'auto',height:"calc(70vh - 200px)"}}>
             <AllRunningQueries
                 tableWidth={this.state.tableWidth}
                 tableHeight={this.state.tableHeight}/>
           </TabPanel>
-          <TabPanel style={{overflowY:'auto',height:this.state.tableHeight}}>
+          <TabPanel style={{overflowY:'auto',height:"calc(70vh - 200px)"}}>
             <ResultsTable
                 tableWidth={this.state.tableWidth}
                 tableHeight={this.state.tableHeight}/>
           </TabPanel>
-          {/*<TabPanel style={{height:this.state.tableHeight}}>*/}
-          {/*  <DataPreview*/}
-          {/*      tableWidth={this.state.tableWidth}*/}
-          {/*      tableHeight={this.state.tableHeight}/>*/}
-          {/*</TabPanel>*/}
+          <TabPanel style={{overflowY:'auto',height:"calc(70vh - 200px)"}}>
+            <DataPreview
+                tableWidth={this.state.tableWidth}
+                tableHeight={this.state.tableHeight}/>
+          </TabPanel>
         </Tabs>
       </div>);
   }
