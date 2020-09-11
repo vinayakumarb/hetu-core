@@ -5,6 +5,7 @@ import "echarts/lib/component/tooltip";
 import "echarts/lib/component/title";
 import OverviewActions from "./OverviewActions";
 import OverviewStore from "./OverviewStore";
+import {formatCount, formatDataSizeBytes} from "../utils";
 class EchartPart extends React.Component{
     constructor(props) {
         super(props);
@@ -26,7 +27,7 @@ class EchartPart extends React.Component{
             lastByte:null,
             lastWorker:null,
             memoryInit:false,
-            unitArr:['quantity','quantity','bytes','quantity','quantity','bytes','quantity','quantity','quantity']
+            unitArr:['quantity','quantity','quantity','quantity','quantity','bytes','quantity','bytes','quantity']
         };
         this._onChange=this._onChange.bind(this)
     }
@@ -178,6 +179,9 @@ class EchartPart extends React.Component{
                 boundaryGap: false,
                 axisLabel:{
                     formatter:function(value,index){
+                        if (index % 2 == 1) {
+                            return "";
+                        }
                         let date=new Date(value).format("yyyy-MM-dd hh:mm:ss");
                         return date.slice(11,16);
                     }
@@ -187,6 +191,14 @@ class EchartPart extends React.Component{
                 name:'usage(%)',
                 axisTick:{
                     show:false
+                },
+                axisLabel:{
+                    formatter: function (value, index) {
+                        if (index % 2 == 1) {
+                            return "";
+                        }
+                        return value;
+                    }
                 }
             },
             series:[{
@@ -210,6 +222,9 @@ class EchartPart extends React.Component{
                         boundaryGap: false,
                         axisLabel:{
                             formatter:function(value,index){
+                                if (index % 2 == 1) {
+                                    return "";
+                                }
                                 let date=new Date(value).format("yyyy-MM-dd hh:mm:ss");
                                 return date.slice(11,16);
                             }
@@ -219,6 +234,22 @@ class EchartPart extends React.Component{
                         name:this.state.unitArr[i],
                         axisTick:{
                             show:false
+                        },
+                        axisLabel:{
+                            formatter: function (name, value, index) {
+                                if (index % 2 == 1) {
+                                    return "";
+                                }
+                                if (name === 'quantity') {
+                                    return formatCount(value);
+                                }
+                                else if (name === 'bytes') {
+                                    return formatDataSizeBytes(value);
+                                }
+                                else {
+                                    return value;
+                                }
+                            }.bind(null, this.state.unitArr[i])
                         }
                     },
                     series:[{
@@ -256,6 +287,7 @@ class EchartPart extends React.Component{
     }
 
     render() {
+        let style = {height: "25vh", width: "30vw"}
         return(
             <div>
                 <div className="select-part">
@@ -265,10 +297,16 @@ class EchartPart extends React.Component{
                         <option value="30">Last 30 minutes</option>
                     </select>
                 </div>
-                <div ref="cpuLoad" style={{height:'400px'}}></div>
-                {Object.keys(this.props.state).map((key,index)=>(
-                    <div ref={key} className={this.props.state[key] ? '' :'display-none'} style={{height:'400px'}} key={index}></div>
-                ))}
+                <div className="overviewGraphContainer">
+                    <div className="overviewChart">
+                        <div ref="cpuLoad" style={style}/>
+                    </div>
+                    {Object.keys(this.props.state).map((key, index) => (
+                        <div className="overviewChart" key={index}>
+                            <div ref={key} className={this.props.state[key] ? '' : 'display-none'} style={style}/>
+                        </div>
+                    ))}
+                </div>
             </div>
 
         )

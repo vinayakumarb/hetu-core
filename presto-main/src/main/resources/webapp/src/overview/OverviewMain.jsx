@@ -74,12 +74,34 @@ class OverviewMain extends React.Component{
                 <div className='overview'>
                     <div className="menu-left">
                         <ul>
-                            <li className="active"><i className="fa fa-line-chart"></i>metrics</li>
-                            <li><a href="./queryeditor.html"><i className="fa fa-home"></i>Home</a></li>
+                            <li>
+                                <a href="./queryeditor.html">
+                                    <div><i className="fa fa-pencil-square-o"></i></div>
+                                    <div>Query Editor</div>
+                                </a>
+                            </li>
+                            <li className="active">
+                                <a href="#">
+                                    <div><i className="fa fa-line-chart"></i></div>
+                                    <div>Metrics</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div><i className="fa fa-server"></i></div>
+                                    <div>Nodes</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div><i className="fa fa-history"></i></div>
+                                    <div>Query History</div>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <div className="line-right">
-                        <h2>Overview dashboard</h2>
+                        <h2>Overview Dashboard</h2>
                         <div className="checkbox-group">
                             <ul>
                                 <li onClick={this.changeState.bind(this,'checkOne')}><span><i className={`fa ${!this.state.checkStatus.checkOne ? 'fa-square-o' : 'fa-check-square-o'}`}></i>Running Queries</span></li>
@@ -101,47 +123,20 @@ class OverviewMain extends React.Component{
                                 <div className="summary-detail">
                                     <h3>Summary Info</h3>
                                     <div className="border-bottom">
-                                        <p className="font-20">total nodes <span className="float-right color-2b610a">{this.state.totalNodes}</span></p>
+                                        <p className="font-20">Total Nodes <span className="float-right color-2b610a">{this.state.totalNodes}</span></p>
                                     </div>
                                     <div className="border-bottom">
-                                        <p className="font-20 padding-top-10">total memory <span className="float-right color-2b610a">{formatDataSizeBytes(this.state.totalMemory)}</span></p>
+                                        <p className="font-20 padding-top-10">Total Memory <span className="float-right color-2b610a">{formatDataSizeBytes(this.state.totalMemory)}</span></p>
                                     </div>
                                     <div className="border-bottom">
-                                        <p className="font-20 padding-top-10">memory used <span className="float-right color-2b610a">{this.state.memoryUsed}</span></p>
-                                        {/*<p className="font-16 color-eee">detail info</p>*/}
+                                        <p className="font-20 padding-top-10">Memory Used <span className="float-right color-2b610a">{this.state.memoryUsed}</span></p>
                                     </div>
                                     <div className="border-bottom">
-                                        <p className="font-20 padding-top-10">process CPU Load <span className="float-right color-2b610a">{this.state.processCpuLoad}</span></p>
+                                        <p className="font-20 padding-top-10">Process CPU Load <span className="float-right color-2b610a">{this.state.processCpuLoad}</span></p>
                                     </div>
                                     <div>
-                                        <p className="font-20 padding-top-10">system CPU Load <span className="float-right color-2b610a">{this.state.systemCpuLoad}</span></p>
+                                        <p className="font-20 padding-top-10">System CPU Load <span className="float-right color-2b610a">{this.state.systemCpuLoad}</span></p>
                                     </div>
-
-                                </div>
-                                <div className="summary-table">
-                                    <h3>Cluster info</h3>
-                                    <table className="table">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>IP</th>
-                                                <th>CPU Count</th>
-                                                <th style={{padding:'0 10px'}}>Node Memory</th>
-                                                <th>Free Memory</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {this.state.tableData.map((ele, index)=>(
-                                            <tr key={index}>
-                                                <td>{ele.id}</td>
-                                                <td>{ele.ip}</td>
-                                                <td>{ele.count}</td>
-                                                <td>{formatDataSizeBytes(ele.nodeMemory)}</td>
-                                                <td>{formatDataSizeBytes(ele.freeMemory)}</td>
-                                            </tr>
-                                        ))}
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
