@@ -73,7 +73,7 @@ class QueryInformation
   update() {
     let windowHeight = document.body.clientHeight;
     let windowWidth = document.documentElement.clientWidth;
-    let newWidth = windowWidth - 280 - 4; //left side size
+    let newWidth = windowWidth - 75 - 270 - 10; //left side size
     newWidth = 400 > newWidth ? 400 : newWidth;
     let newHeight = windowHeight - ((0.3 * (windowHeight + 50)) + 40 + 57 + 46 + 6); // editor + header + tabs + footer+ extra 6(unknown) heights
     newHeight = 400 > newHeight ? 400 : newHeight;

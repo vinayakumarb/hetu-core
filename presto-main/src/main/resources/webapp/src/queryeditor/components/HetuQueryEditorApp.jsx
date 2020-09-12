@@ -21,6 +21,7 @@ import Footer from "./Footer";
 import QueryInformation from './QueryInformation';
 import QueryEditor from './QueryEditor';
 import LeftPanel from "./LeftPanel";
+import NavigationMenu from "../../NavigationMenu";
 
 class HetuQueryEditorApp
     extends React.Component {
@@ -39,6 +40,7 @@ class HetuQueryEditorApp
           <Header />
         </div>
         <div className='flex flex-row content'>
+            <NavigationMenu active={"queryeditor"}/>
           <div className='flex flex-column flex-initial left' style={{height: "100%"}}>
               <div className='flex flex-column content' style={{height: "100%"}}>
                   <LeftPanel />

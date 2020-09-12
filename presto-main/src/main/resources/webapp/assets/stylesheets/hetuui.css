@@ -159,8 +159,10 @@ body {
 .left {
     width: 270px;
 }
+
 .leftTabContainer {
     padding: 3px 0px 0px 5px;
+    border-left: 1px solid #bebebe;
 }
 
 .right {
@@ -1242,4 +1244,79 @@ button.hetu-form-label-plus:active,button.hetu-form-label-plus:active:hover,butt
     display: inline-block;
     position: absolute;
     right: 7px;
+}
+
+.menu-left{
+    width: 60px;
+    height: 100%;
+    margin-right: 5px;
+}
+
+.menu-left ul {
+    padding-left: 0px;
+    border: 1px solid #ddd;
+    min-height: calc(100vh - 110px);
+    text-align: center;
+    background-color: #effaff;
+    box-shadow: 3px 0px 4px 0px #AAAAAA;
+    margin-top: 5px;
+    border-radius: 0 10px 10px 0;
+}
+
+.menu-left li{
+    padding: 10px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #666;
+}
+
+.menu-left li i.active, .menu-left li .active{
+    color: #337AB7 !important;
+}
+.menu-left li:hover {
+    background-color: #EDEDED;
+    color: #fff;
+}
+.menu-left i{
+    margin-left: 5px;
+    padding-bottom: 5px;
+    font-size: 20px;
+    color: #626E86;
+}
+
+.menu-left .active i{
+    margin-left: 5px;
+    padding-bottom: 5px;
+    color: #337AB7 !important;
+}
+
+.menu-left li a{
+    color: #333;
+}
+
+.menu-left li.active {
+    background-color: #bde7e8;
+}
+
+.menu-left li.active a{
+    color: #337AB7 !important;
+}
+
+.menu-left li a:hover{
+    text-decoration: none;
+}
+
+.schema-tree-icons.favorite {
+    color: #c0be1f;
+    margin-left: 5px;
+}
+
+.contextmenu-icons.favorite {
+    color: #c0be1f;
+}
+
+.contextmenu-icons.remove-favorite {
+    color: #fd082d;
 }

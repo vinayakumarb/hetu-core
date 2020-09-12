@@ -1,10 +1,24 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import  React from "react";
 import EchartPart from "./EchartPart";
 import Header from '../queryeditor/components/Header';
 import Footer from "../queryeditor/components/Footer";
-import OverviewActions from "./OverviewActions";
 import OverviewStore from "./OverviewStore";
 import {formatDataSizeBytes} from "../utils";
+import NavigationMenu from "../NavigationMenu";
+
 class OverviewMain extends React.Component{
     constructor(props) {
         super(props);
@@ -72,34 +86,7 @@ class OverviewMain extends React.Component{
                     <Header />
                 </div>
                 <div className='overview'>
-                    <div className="menu-left">
-                        <ul>
-                            <li>
-                                <a href="./queryeditor.html">
-                                    <div><i className="fa fa-pencil-square-o"></i></div>
-                                    <div>Query Editor</div>
-                                </a>
-                            </li>
-                            <li className="active">
-                                <a href="#">
-                                    <div><i className="fa fa-line-chart"></i></div>
-                                    <div>Metrics</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div><i className="fa fa-server"></i></div>
-                                    <div>Nodes</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div><i className="fa fa-history"></i></div>
-                                    <div>Query History</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <NavigationMenu active={"metrics"}/>
                     <div className="line-right">
                         <h2>Overview Dashboard</h2>
                         <div className="checkbox-group">
@@ -141,6 +128,9 @@ class OverviewMain extends React.Component{
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className='flex flex-row flex-initial footer'>
+                    <Footer/>
                 </div>
             </div>
         )

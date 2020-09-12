@@ -41,6 +41,7 @@ class SchemaActions {
                     catalog = {
                         name: entry.catalogName,
                         type: dataType.CATALOG,
+                        fqn: "schematree-catalog." + entry.catalogName,
                         children: []
                     };
                     catalogs.push(catalog);
@@ -52,6 +53,8 @@ class SchemaActions {
                         schema = {
                             name: schemaName,
                             type: dataType.SCHEMA,
+                            catalog: catalog.name,
+                            fqn: "schematree-schema." + catalog.name + "." + schemaName,
                             children: []
                         };
                         schemas.push(schema);
@@ -100,6 +103,7 @@ class SchemaActions {
                     catalog = {
                         name: entry.connectorId,
                         type: dataType.CATALOG,
+                        fqn: "schematree-catalog." + entry.catalogName,
                         children: []
                     };
                     catalogs.push(catalog);
@@ -111,6 +115,7 @@ class SchemaActions {
                         name: entry.schema,
                         type: dataType.SCHEMA,
                         catalog: entry.connectorId,
+                        fqn: "schematree-schema." + catalog.name + "." + schemaName,
                         children: []
                     };
                     schemas.push(schema);

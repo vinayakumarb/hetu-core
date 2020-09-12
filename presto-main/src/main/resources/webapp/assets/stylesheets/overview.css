@@ -32,62 +32,6 @@ body{
     list-style: none;
     padding-left: 0;
 }
-.overview .menu-left{
-    width: 100px;
-    height: 100%;
-}
-.overview .menu-left ul {
-    border: 1px solid #ddd;
-    min-height: calc(100vh - 100px);
-    text-align: center;
-    background-color: #fff;
-    box-shadow: -1px 0px 5px 0px #AAAAAA;
-    margin-bottom: 0px;
-    margin-top:20px;
-}
-.overview .menu-left li{
-    padding: 15px;
-    font-size: 12px;
-    letter-spacing: 1px;
-    font-weight: bold;
-    color: #666;
-}
-.overview .menu-left li i.active, .overview .menu-left li .active{
-    color: #337AB7 !important;
-}
-.overview .menu-left li:hover {
-    background-color: #EDEDED;
-    color: #fff;
-}
-.overview .menu-left i{
-    margin-left: 5px;
-    padding-bottom: 5px;
-    font-size: 30px;
-    color: #626E86;
-}
-
-.overview .menu-left .active i{
-    margin-left: 5px;
-    padding-bottom: 5px;
-    font-size: 30px;
-    color: #337AB7 !important;
-}
-
-.overview .menu-left li a{
-    color: #333;
-}
-
-.overview .menu-left li.active {
-    background-color: #bde7e8;
-}
-
-.overview .menu-left li.active a{
-    color: #337AB7 !important;
-}
-
-.overview .menu-left li a:hover{
-    text-decoration: none;
-}
 .overview .line-right{
     flex: 1;
     padding: 0 20px;
@@ -146,7 +90,7 @@ body{
 
 .overviewGraphContainer {
     min-width: calc(60vw + 80px);
-    max-height: calc(100vh - 280px);
+    max-height: calc(100vh - 290px);
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
