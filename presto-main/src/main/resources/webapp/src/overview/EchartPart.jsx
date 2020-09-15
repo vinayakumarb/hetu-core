@@ -5,11 +5,46 @@ import "echarts/lib/component/tooltip";
 import "echarts/lib/component/title";
 import OverviewActions from "./OverviewActions";
 import OverviewStore from "./OverviewStore";
+import MultiSelect from 'react-simple-multi-select';
 import {formatCount, formatDataSizeBytes} from "../utils";
 class EchartPart extends React.Component{
     constructor(props) {
         super(props);
         this.state={
+            checkStatus:{
+                checkOne:true,
+                checkTwo:true,
+                checkThree:true,
+                checkFour:true,
+                checkFive:true,
+                checkSix:true,
+                checkSeven:true,
+                checkEight:true,
+                checkNine:true
+            },
+            itemList: [
+                {key:"Running Queries", value:"checkOne"},
+                {key:"Active Workers", value:"checkTwo"},
+                {key:"Rows/Sec", value:"checkThree"},
+                {key:"Queued Queries", value:"checkFour"},
+                {key:"Runnable drivers", value:"checkFive"},
+                {key:"Bytes/Sec", value:"checkSix"},
+                {key:"Blocked Queries", value:"checkSeven"},
+                {key:"Reserved Memory(B)", value:"checkEight"},
+                {key:"Worker Parallelism", value:"checkNine"}
+              ],
+              selectedItemList: [
+                {key:"Running Queries", value:"checkOne"},
+                {key:"Active Workers", value:"checkTwo"},
+                {key:"Rows/Sec", value:"checkThree"},
+                {key:"Queued Queries", value:"checkFour"},
+                {key:"Runnable drivers", value:"checkFive"},
+                {key:"Bytes/Sec", value:"checkSix"},
+                {key:"Blocked Queries", value:"checkSeven"},
+                {key:"Reserved Memory(B)", value:"checkEight"},
+                {key:"Worker Parallelism", value:"checkNine"}
+              ],
+            chartName:['Running Queries','Active Workers','Rows/Sec','Queued Queries','Runnable drivers','Bytes/Sec','Blocked Queries','Reserved Memory(B)','Worker Parallelism'],
             step:10,
             timer:null,
             chartCpu:[],
@@ -22,15 +57,32 @@ class EchartPart extends React.Component{
             chart7:[],
             chart8:[],
             chart9:[],
-            chartRef:Object.keys(this.props.state),
+            chartRef:null,
             lastRow:null,
             lastByte:null,
             lastWorker:null,
             memoryInit:false,
             unitArr:['quantity','quantity','quantity','quantity','quantity','bytes','quantity','bytes','quantity']
         };
-        this._onChange=this._onChange.bind(this)
+        this.state.chartRef = Object.keys(this.state.checkStatus),
+        this._onChange=this._onChange.bind(this);
+        this.changeList = this.changeList.bind(this);
     }
+
+    changeList(selectedItemList) {
+        this.state.itemList.map(item => {this.state.checkStatus[item.value]=false})
+        selectedItemList.map(item => {this.state.checkStatus[item.value]=true})
+        let state = this.state;
+        state.selectedItemList = selectedItemList;
+        this.setState(state);
+    }
+
+    changeState(name){
+        let state = this.state;
+        state.checkStatus[name] = !state.checkStatus[name];
+        this.setState(state);
+    }
+
     //echarts
     componentDidMount() {
         this.setXAxis();
@@ -124,7 +176,7 @@ class EchartPart extends React.Component{
                 option.yAxis = {max: 100, min: 0, type: "value"};
                 mychart.setOption(option);
             }
-            for(let i=0;i<this.props.name.length;i++){
+            for(let i=0;i<this.state.chartName.length;i++){
                 if(!this.refs[this.state.chartRef[i]].className){
                     let  mychart=echarts.init(this.refs[this.state.chartRef[i]]);
                     let option=mychart.getOption();
@@ -168,7 +220,13 @@ class EchartPart extends React.Component{
         });
         let  mychart1=echarts.init(this.refs.cpuLoad);
         mychart1.setOption({
-            title:{text:'CPU Usage'},
+            title:{text:'CPU Usage', 
+                left:'center',
+                textStyle: {
+                    color: "#767676",
+                    fontSize: 16
+                }
+            },
             tooltip:{
                 trigger:'axis'
             },
@@ -207,11 +265,18 @@ class EchartPart extends React.Component{
                 data:[]
             }]
         })
-        for(let i=0;i<this.props.name.length;i++){
+        for(let i=0;i<this.state.chartName.length;i++){
             if(!this.refs[this.state.chartRef[i]].className){
                 let  mychart=echarts.init(this.refs[this.state.chartRef[i]]);
                 mychart.setOption({
-                    title:{text:this.props.name[i]},
+                    title:{
+                        text:this.state.chartName[i], 
+                        left:'center', 
+                        textStyle: {
+                            color: "#767676",
+                            fontSize: 16
+                            }
+                        },
                     tooltip:{
                         trigger:'axis'
                     },
@@ -269,7 +334,7 @@ class EchartPart extends React.Component{
         let state = this.state;
         state.step = val;
         this.setState(state);
-        for(let i=0;i<this.props.name.length;i++){
+        for(let i=0;i<this.state.chartName.length;i++){
             if(!this.refs[this.state.chartRef[i]].className){
                 let  mychart=echarts.init(this.refs[this.state.chartRef[i]]);
                 let option=mychart.getOption();
@@ -287,9 +352,19 @@ class EchartPart extends React.Component{
     }
 
     render() {
-        let style = {height: "25vh", width: "30vw"}
+        let style = {height: "25vh", width: "30vw", left: "center", top: "center"}
         return(
             <div>
+                <div className="selectItemContainer">
+                <div className="selectChart multiSelect">
+                     <MultiSelect
+                            title={"Select Chart"}
+                            itemList={this.state.itemList}
+                            selectedItemList={this.state.selectedItemList}
+                            changeList={this.changeList}
+                            isObjectArray={true}
+                      />
+                </div>
                 <div className="select-part">
                     <select onChange={this.selected.bind(this)} value={this.state.step}>
                         <option value="10">Last 10 minutes</option>
@@ -297,13 +372,14 @@ class EchartPart extends React.Component{
                         <option value="30">Last 30 minutes</option>
                     </select>
                 </div>
+                </div>
                 <div className="overviewGraphContainer">
                     <div className="overviewChart">
                         <div ref="cpuLoad" style={style}/>
                     </div>
-                    {Object.keys(this.props.state).map((key, index) => (
-                        <div className="overviewChart" key={index}>
-                            <div ref={key} className={this.props.state[key] ? '' : 'display-none'} style={style}/>
+                    {Object.keys(this.state.checkStatus).map((key, index) => (
+                        <div  className={this.state.checkStatus[key] ? 'overviewChart' : 'display-none'} key={index}>
+                            <div ref={key} style={style}/>
                         </div>
                     ))}
                 </div>

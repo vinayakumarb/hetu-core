@@ -78,8 +78,57 @@ body{
 .display-none{
     display: none;
 }
-.select-part{
+.select-part {
+    float: left;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.selectItemContainer {
+    float: right;
+}
+.selectChart {
+    float: left;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.multiSelect {
     text-align: right;
+}
+.multiSelect .koaemg {
+    background: white;
+    border: 1px solid #675d5d;
+    padding: 0px 5px;
+    outline: none;
+    border-radius: 2px;
+    font-weight: normal; 
+    font-size: 12px;
+}
+.multiSelect .koaemg:hover {
+    background: #fff;
+    cursor: pointer;
+}
+.multiSelect .hrsxMP {
+    font-size: 16px;
+    margin-left: 8px;
+}
+.multiSelect .bNEwgs {
+    padding: 10px;
+}
+.multiSelect ul .ihQlfX{
+    font-size: 12px;
+    font-weight: normal;
+    margin: 3px 0px;
+    padding: 0;
+}
+.multiSelect ul .ihQlfX:hover {
+    padding: 0;
+    background-color: #fff;
+}
+.multiSelect ul li label {
+    vertical-align: middle;
+}
+.select-part select {
+    padding: 3px;
 }
 .flex-initial.header{
 }
@@ -90,7 +139,7 @@ body{
 
 .overviewGraphContainer {
     min-width: calc(60vw + 80px);
-    max-height: calc(100vh - 290px);
+    max-height: calc(100vh - 200px);
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
