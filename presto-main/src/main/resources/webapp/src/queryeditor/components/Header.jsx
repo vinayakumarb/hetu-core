@@ -45,7 +45,7 @@ class Header
       <header className='flex flex-row'>
         <div className='flex'>
           <a className={"hetu-header-brand-name"} href={"/"} style={{fontFamily:"roboto!important"}}>
-            <img src={"assets/lk-logo.png"} alt={"openLooKeng logo"} className={"hetu-header-brand-name"}/>
+            <img src={"assets/lk-logos.svg"} alt={"openLooKeng logo"} className={"hetu-header-brand-name"}/>
           </a>
         </div>
         <div className='flex justify-flex-end menu'>

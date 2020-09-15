@@ -1130,6 +1130,8 @@ button.hetu-form-label-plus:active,button.hetu-form-label-plus:active:hover,butt
 }
 .hetu-header-brand-name{
     width: 120px;
+    position: relative;
+    bottom: 3px;
 }
 
 .fa {
