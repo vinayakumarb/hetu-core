@@ -8,6 +8,7 @@ module.exports = {
         'worker': __dirname +'/worker.jsx',
         'hetuqueryeditor': __dirname +'/hetuqueryeditor.jsx',
         'overview': __dirname +'/overview.jsx',
+        'nodes': __dirname +'/nodes.jsx'
     },
     mode: "development",
     module: {
